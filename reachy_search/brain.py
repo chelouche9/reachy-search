@@ -62,12 +62,17 @@ class Brain:
             return
 
         @beta_tool
-        def web_search(query: str) -> str:
+        def web_search(query: str, topic: str = "general",
+                       time_range: str = "") -> str:
             """Search the web for current information.
 
             Args:
                 query: A specific search query. Include brand, model, material
                     or size when visible on the object in question.
+                topic: "news" for current events, "finance" for markets and
+                    company financials, otherwise "general".
+                time_range: Restrict recency when it matters: "day", "week",
+                    "month" or "year". Empty string for no restriction.
             """
             if on_search is not None:
                 try:
@@ -75,7 +80,7 @@ class Brain:
                 except Exception:
                     logger.debug("Search announcement failed", exc_info=True)
             try:
-                results = searcher.search(query)
+                results = searcher.search(query, topic=topic, time_range=time_range)
                 return results.as_context() or "The search returned no results."
             except Exception as exc:
                 logger.exception("Search tool failed")
