@@ -139,6 +139,32 @@ beat-based choreography kit (thinking loaders, an attentive idle, an error
 shake), `reachy_search.sounds` synthesizes the processing chirps, and
 `reachy_search.main.match_wake` is the wake-word matcher.
 
+## Production integrations: bring your own agent
+
+If you already run an agent stack — your model, your persona, your
+conversation history — you don't want our agent composing answers. You want
+the robot-specific hard part handled and structured results back. That is
+`GroundedSearch`: it extends a 2D agent into the 3D world. The robot's camera
+frame becomes part of search planning; your agent keeps all the reasoning.
+
+```python
+from reachy_search import GroundedSearch
+
+gs = GroundedSearch(anthropic_api_key=A, tavily_api_key=T)
+r = gs.research("any news about them this week?",
+                frame=jpeg,                       # optional
+                context=my_agent.summary())       # your context steers the query
+r.to_dict()   # -> feed your own LLM as a tool result
+```
+
+What it does for you, per call: resolves the question against the frame
+(identifies the presented object, folds brand/model/material into the query)
+and against your context (pronouns, domain), routes the search (general /
+news / finance, time ranges, image results when the question wants visuals),
+and returns `{query, search_type, object_seen, results[], images[],
+engine_answer}` — or `recognized=False` plus a `clarification` line to relay
+when it needs a better look. Your model writes every word your users hear.
+
 ## Using it inside the official conversation app
 
 `integrations/conversation_app_tool.py` is a self-contained web-search tool
