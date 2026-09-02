@@ -110,7 +110,17 @@ animation stays smooth while the network doesn't.
 
 ## Use it in your own app
 
-The search isn't the product — the *performance* is, and it's importable.
+This is a stack of independent layers, not one flow. Take the top one for the
+whole act, or reach in at any depth and ignore the rest — nothing forces our
+interaction model on your app:
+
+| Layer | Import | What you get, standalone |
+|---|---|---|
+| The whole act | `EmbodiedSearch(mini, ...).ask(q)` | drumroll + chirps + "Searching..." + spoken answer |
+| The agent | `brain.Brain(...).respond(jpeg, q)` | frame + question → answer text; decides when to search; `searcher=None` makes it pure look-and-answer; `reset()` clears memory |
+| Search only | `search.Searcher(key).search(q)` | Tavily results shaped for spoken answers |
+| The performance kit | `moves.*`, `sounds.*`, `tts.Speaker` | beat-based choreography, processing chirps, local voice — usable with your own logic entirely |
+
 `ask()` runs the whole act inside your app: drumroll, processing chirps, a
 spoken "Searching...", the aha pop, and the answer out loud.
 

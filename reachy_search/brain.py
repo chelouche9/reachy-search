@@ -50,12 +50,16 @@ class RefusalError(RuntimeError):
 
 
 class Brain:
-    def __init__(self, api_key: str, model: str, searcher, effort: str = "low",
+    def __init__(self, api_key: str, model: str, searcher=None, effort: str = "low",
                  on_search=None):
         self._client = anthropic.Anthropic(api_key=api_key)
         self._model = model
         self._output_config = {"effort": effort}
         self._history: list[dict] = []
+        self._tools = []
+        if searcher is None:
+            # No search tool registered: a pure look-and-answer agent.
+            return
 
         @beta_tool
         def web_search(query: str) -> str:
@@ -78,6 +82,10 @@ class Brain:
                 return f"The search failed ({type(exc).__name__}). Answer from what you know and say you couldn't look it up."
 
         self._tools = [web_search]
+
+    def reset(self) -> None:
+        """Forget the conversation so far."""
+        self._history = []
 
     def respond(self, jpeg: bytes | None, question: str) -> str:
         content: list = []
