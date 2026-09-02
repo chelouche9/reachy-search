@@ -47,15 +47,22 @@ class Searcher:
 
         self._client = TavilyClient(api_key=api_key)
 
-    def search(self, query: str) -> SearchResponse:
-        raw = self._client.search(
+    def search(self, query: str, topic: str = "general",
+               time_range: str = "") -> SearchResponse:
+        kwargs = dict(
             query=query,
             max_results=MAX_RESULTS,
             # Tavily's own one-line synthesis is usually the single most useful
             # thing in the payload for a spoken answer.
             include_answer=True,
-            search_depth="basic",
+            # A robot is standing there visibly thinking: latency is quality.
+            search_depth="fast",
         )
+        if topic in ("news", "finance"):
+            kwargs["topic"] = topic
+        if time_range in ("day", "week", "month", "year"):
+            kwargs["time_range"] = time_range
+        raw = self._client.search(**kwargs)
 
         results = [
             SearchResult(
