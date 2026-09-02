@@ -110,60 +110,52 @@ animation stays smooth while the network doesn't.
 
 ## Use it in your own app
 
-This is a stack of independent layers, not one flow. Take the top one for the
-whole act, or reach in at any depth and ignore the rest — nothing forces our
-interaction model on your app:
-
-| Layer | Import | What you get, standalone |
-|---|---|---|
-| The whole act | `EmbodiedSearch(mini, ...).ask(q)` | drumroll + chirps + "Searching..." + spoken answer |
-| The agent | `brain.Brain(...).respond(jpeg, q)` | frame + question → answer text; decides when to search; `searcher=None` makes it pure look-and-answer; `reset()` clears memory |
-| Search only | `search.Searcher(key).search(q)` | Tavily results shaped for spoken answers |
-| The performance kit | `moves.*`, `sounds.*`, `tts.Speaker` | beat-based choreography, processing chirps, local voice — usable with your own logic entirely |
-
-`ask()` runs the whole act inside your app: drumroll, processing chirps, a
-spoken "Searching...", the aha pop, and the answer out loud.
+One object, three verbs, ordered by how much you delegate to us:
 
 ```python
-from reachy_search import EmbodiedSearch
+from reachy_search import ReachySearch
 
-skill = EmbodiedSearch(mini, anthropic_api_key=..., tavily_api_key=...)
-skill.warm_up()                     # optional, once
-answer = skill.ask("find me a cheaper one")   # frame comes from the camera
+rs = ReachySearch(anthropic_api_key=A, tavily_api_key=T, mini=mini)
 ```
 
-`ask()` owns `set_target` while it runs — pause your own control loop for the
-call (the SDK's one-writer rule). `speak=False` / `animate=False` give you just
-the text. The pieces are also usable à la carte: `reachy_search.moves` is a
-beat-based choreography kit (thinking loaders, an attentive idle, an error
-shake), `reachy_search.sounds` synthesizes the processing chirps, and
-`reachy_search.main.match_wake` is the wake-word matcher.
+**`rs.perform(question)`** — the whole act, on the robot: thinking move,
+processing chirps, a spoken "Searching...", the answer out loud. It owns
+`set_target` for the duration (the SDK's one-writer rule), so pause your own
+control loop for the call. Needs `mini`.
 
-## Production integrations: bring your own agent
+**`rs.answer(question, frame=None)`** — our agent looks at the frame, decides
+for itself whether to search, and returns a short spoken-style answer as text.
+You do the speaking and the moving. Conversational memory across calls;
+`rs.reset()` clears it. Runs anywhere — `mini` optional (used only to grab a
+frame when you don't pass one).
 
-If you already run an agent stack — your model, your persona, your
-conversation history — you don't want our agent composing answers. You want
-the robot-specific hard part handled and structured results back. That is
-`GroundedSearch`: it extends a 2D agent into the 3D world. The robot's camera
-frame becomes part of search planning; your agent keeps all the reasoning.
+**`rs.research(question, frame=None, context="")`** — for production apps
+that already run their own agent: we handle the robot-specific hard part and
+hand back structured results; **your** model composes every word your users
+hear. This is what extends a 2D agent into the 3D world — the camera frame
+becomes part of search planning, your stack keeps all the reasoning:
 
 ```python
-from reachy_search import GroundedSearch
-
-gs = GroundedSearch(anthropic_api_key=A, tavily_api_key=T)
-r = gs.research("any news about them this week?",
-                frame=jpeg,                       # optional
-                context=my_agent.summary())       # your context steers the query
-r.to_dict()   # -> feed your own LLM as a tool result
+r = rs.research("any news about them this week?",
+                context=my_agent.summary())   # your context steers the query
+r.query          # "Pollen Robotics Reachy Mini news"
+r.search_type    # routed: "general" | "news" | "finance"
+r.object_seen    # when the question was about something shown to the camera
+r.results        # [{title, url, snippet}, ...] — and r.images when relevant
+r.to_dict()      # feed straight to your own LLM as a tool result
 ```
 
-What it does for you, per call: resolves the question against the frame
-(identifies the presented object, folds brand/model/material into the query)
-and against your context (pronouns, domain), routes the search (general /
-news / finance, time ranges, image results when the question wants visuals),
-and returns `{query, search_type, object_seen, results[], images[],
-engine_answer}` — or `recognized=False` plus a `clarification` line to relay
-when it needs a better look. Your model writes every word your users hear.
+When it can't see well enough for an object question it returns
+`recognized=False` plus a `clarification` line to relay ("hold it closer?") —
+robust by default, nothing to handle but one boolean.
+
+Engines load lazily per verb: a `research`-only integration never loads a
+voice, an `answer`-only one never touches the robot.
+
+**À la carte:** apps that only want the personality skip the object entirely —
+`reachy_search.moves` is the beat-based choreography kit (thinking loaders,
+attentive idle, error shake) and `reachy_search.sounds` synthesizes the
+processing chirps. Your chess app can drum while its own engine thinks.
 
 ## Using it inside the official conversation app
 

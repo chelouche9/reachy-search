@@ -1,12 +1,16 @@
 """Reachy Search — web search as a robot performance.
 
-Runnable as a store app, importable as a library:
+Runnable as a store app, importable as a library. One object, three verbs:
 
-    from reachy_search import EmbodiedSearch     # the whole act
-    from reachy_search import GroundedSearch     # retrieval only, you compose
+    from reachy_search import ReachySearch
+
+    rs = ReachySearch(anthropic_api_key=..., tavily_api_key=..., mini=mini)
+    rs.perform("find me a cheaper one")   # the whole act, on the robot
+    rs.answer("what is this?", frame=j)   # our agent composes; you get text
+    rs.research("news on them?", ...)     # structured results; you compose
 """
 
-from .embodied import EmbodiedSearch
-from .research import GroundedSearch, ResearchResult
+from .api import ReachySearch
+from .research import ResearchResult
 
-__all__ = ["EmbodiedSearch", "GroundedSearch", "ResearchResult"]
+__all__ = ["ReachySearch", "ResearchResult"]
