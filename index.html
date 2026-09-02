@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reachy Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="tags"><span>vision</span><span>voice</span><span>web search</span></p>
+          <h1>🔎 Reachy&nbsp;Search</h1>
+          <p class="tagline">
+            Hold something up. Boop an antenna. Ask.
+          </p>
+          <p class="sub">
+            Reachy looks at the object, spins its antennas while it searches the
+            web, and tells you the answer out loud.
+          </p>
+        </div>
+
+        <figure class="media">
+          <span class="media__fallback">Demo video coming soon</span>
+          <video autoplay loop muted playsinline>
+            <source src="reachy_search/assets/demo.mp4" type="video/mp4" />
+          </video>
+        </figure>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2>How it works</h2>
+        <ol class="steps">
+          <li>
+            <h3>Boop an antenna</h3>
+            <p>
+              The antennas run at low gain, so they double as physical buttons.
+              Reachy grabs a camera frame the instant you touch one.
+            </p>
+          </li>
+          <li>
+            <h3>Ask out loud</h3>
+            <p>
+              It records until you stop talking. Speech recognition runs locally
+              — your microphone audio never leaves the machine.
+            </p>
+          </li>
+          <li>
+            <h3>It thinks, visibly</h3>
+            <p>
+              Claude identifies the object and writes a search query, Tavily
+              searches, Claude writes the reply. Meanwhile Reachy plays one of
+              three thinking animations, picked at random.
+            </p>
+          </li>
+          <li>
+            <h3>It answers</h3>
+            <p>
+              Spoken through the robot's own speaker, with the head moving along
+              to the voice.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="panel panel--quote">
+        <blockquote>
+          <p class="ask">“What is this?”</p>
+          <p class="reply">
+            That's a stovetop moka pot. Water boils in the bottom chamber and
+            pressure pushes it up through the coffee. Yours looks like a
+            six-cup aluminium one.
+          </p>
+        </blockquote>
+        <p class="note">
+          Ask it anything you'd ask while holding the thing — <em>is this
+          dishwasher safe, find me a cheaper one, what do I even do with this.</em>
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>The thinking moves</h2>
+        <p class="lede">
+          The latency isn't hidden. The animation <em>is</em> the interface.
+          Three of them, chosen at random per search.
+        </p>
+        <div class="moves">
+          <div>
+            <h3>ponder</h3>
+            <p>Head cocks to one side and holds, sweeping slowly like it's reading a shelf. Antennas counter-rotate, a dial being turned.</p>
+          </div>
+          <div>
+            <h3>scan</h3>
+            <p>A small figure-eight, antennas flicking alternately, deliberately off the head's rhythm.</p>
+          </div>
+          <div>
+            <h3>spin_up</h3>
+            <p>The literal loading spinner — antennas counter-rotate, accelerating from a lazy turn to a blur.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Setup</h2>
+        <p class="lede">
+          Two API keys, both with usable free tiers. Install from the Reachy Mini
+          dashboard, open the app's settings page, paste them in. That's the
+          whole configuration.
+        </p>
+        <ul class="keys">
+          <li><a href="https://console.anthropic.com/settings/keys">Anthropic</a> — sees the object, writes the answer</li>
+          <li><a href="https://app.tavily.com/home">Tavily</a> — searches the web</li>
+        </ul>
+        <p class="note">
+          Speech recognition and synthesis are local, so there's nothing else to
+          sign up for.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer__inner">
+        <div>
+          <h4>Reachy Mini</h4>
+          <a href="https://huggingface.co/docs/reachy_mini">Documentation</a>
+          <a href="https://huggingface.co/spaces?q=reachy_mini">More apps</a>
+          <a href="https://discord.gg/Y7FgMqHsub">Discord</a>
+        </div>
+        <div>
+          <h4>This app</h4>
+          <a href="https://github.com/pollen-robotics/reachy_mini">Reachy Mini SDK</a>
+          <a href="https://docs.anthropic.com">Claude API</a>
+          <a href="https://tavily.com">Tavily</a>
+        </div>
+        <p class="colophon">A weekend toy, not a product. MIT licensed.</p>
+      </div>
+    </footer>
+  </body>
+</html>

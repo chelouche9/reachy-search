@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reachy Search — settings</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Reachy Search</h1>
+      <p class="lede">
+        Say “hey Reachy” — or boop an antenna — and ask.
+      </p>
+
+      <div id="status" class="status status--pending">Checking…</div>
+
+      <button id="ask" class="ask-btn" type="button">🎤 Ask now</button>
+      <p class="ask-hint">
+        Same as booping an antenna — it grabs a frame and listens. Use this in
+        the simulator, or when you can't reach the robot's head.
+      </p>
+
+      <form id="keys">
+        <label for="anthropic">
+          Anthropic API key
+          <small>Identifies the object and writes the answer. <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer">Get one</a>.</small>
+        </label>
+        <input id="anthropic" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" />
+
+        <label for="tavily">
+          Tavily API key
+          <small>Searches the web. The free tier covers casual use. <a href="https://app.tavily.com/home" target="_blank" rel="noreferrer">Get one</a>.</small>
+        </label>
+        <input id="tavily" type="password" autocomplete="off" spellcheck="false" placeholder="tvly-…" />
+
+        <label for="voice">
+          Voice
+          <small>Piper voice, downloaded once on first use.</small>
+        </label>
+        <input id="voice" type="text" autocomplete="off" spellcheck="false" placeholder="en_US-amy-medium" />
+
+        <button type="submit">Save</button>
+        <p id="saved" class="saved" hidden>Saved.</p>
+      </form>
+
+      <p class="footnote">
+        Keys are stored on this machine only, in
+        <code>~/.config/reachy_search/settings.json</code>. They are never sent
+        anywhere except to Anthropic and Tavily.
+      </p>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>

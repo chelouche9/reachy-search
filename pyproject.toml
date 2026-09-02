@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "reachy_search"
+version = "0.1.0"
+description = "Hold something up, ask Reachy Mini about it, and it searches the web and answers out loud."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "reachy-mini",
+    "anthropic>=1.0",
+    "tavily-python>=0.7",
+    "faster-whisper>=1.1",
+    "piper-tts>=1.3",
+]
+keywords = ["reachy-mini-app"]
+
+[project.optional-dependencies]
+# Only needed by dev_webcam.py, the robot-free harness.
+dev = ["opencv-python", "sounddevice"]
+
+[project.entry-points."reachy_mini_apps"]
+reachy_search = "reachy_search.main:ReachySearch"
+
+[tool.setuptools]
+package-dir = { "" = "." }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+reachy_search = ["**/*"] # Also include all non-.py files
