@@ -116,9 +116,8 @@ class ReachySearch(ReachyMiniApp):
 
         self._mount_settings_ui()
 
-        logger.info("Reachy Search starting (keys: %s, wake word: %s)",
-                    "ok" if self._settings.ready else
-                    f"missing {', '.join(self._settings.missing())}",
+        logger.info("Reachy Search starting (%s; wake word: %s)",
+                    self._settings.describe_keys(),
                     "on" if config.WAKE_ENABLED else "off")
 
         reachy_mini.media.start_recording()

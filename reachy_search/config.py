@@ -76,6 +76,18 @@ class Settings:
     whisper_model: str = WHISPER_MODEL
     claude_model: str = CLAUDE_MODEL
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+    sources: dict = field(default_factory=dict, repr=False)
+
+    def describe_keys(self) -> str:
+        """For the startup log: where each key came from, last 6 chars only."""
+        parts = []
+        for label, attr in (("anthropic", "anthropic_api_key"), ("tavily", "tavily_api_key")):
+            value = getattr(self, attr)
+            if value:
+                parts.append(f"{label} ...{value[-6:]} from {self.sources.get(attr, '?')}")
+            else:
+                parts.append(f"{label} MISSING")
+        return "; ".join(parts)
 
     @property
     def ready(self) -> bool:
@@ -134,9 +146,32 @@ def _load_dotenv() -> None:
         break
 
 
+# A project-local .env next to pyproject.toml (the checkout root). Explicit,
+# per-project, gitignored — and it outranks an ambient shell export, because a
+# stale key lingering in a terminal is a classic way to keep hitting a dead
+# account after you have already pasted a fresh one.
+ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
+
+
+def _read_env_file(path: Path) -> dict[str, str]:
+    values: dict[str, str] = {}
+    try:
+        for line in path.read_text().splitlines():
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            if line.startswith("export "):
+                line = line[len("export "):]
+            name, _, value = line.partition("=")
+            values[name.strip()] = value.strip().strip("\"'")
+    except OSError as exc:
+        logger.warning("Ignoring unreadable %s: %s", path, exc)
+    return values
+
+
 def load() -> Settings:
-    """Environment wins over the settings file, so a dev shell can override."""
-    _load_dotenv()
+    """Precedence, lowest to highest: settings.json, shell environment,
+    project .env. `sources` records where each key came from, for the log."""
     settings = Settings()
 
     if SETTINGS_PATH.exists():
@@ -146,12 +181,22 @@ def load() -> Settings:
                         "whisper_model", "claude_model"):
                 if stored.get(key):
                     setattr(settings, key, stored[key])
+                    settings.sources[key] = "settings.json"
         except (OSError, json.JSONDecodeError) as exc:
             logger.warning("Ignoring unreadable settings file: %s", exc)
 
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        settings.anthropic_api_key = os.environ["ANTHROPIC_API_KEY"]
-    if os.environ.get("TAVILY_API_KEY"):
-        settings.tavily_api_key = os.environ["TAVILY_API_KEY"]
+    pairs = (("ANTHROPIC_API_KEY", "anthropic_api_key"),
+             ("TAVILY_API_KEY", "tavily_api_key"))
+    for env_name, attr in pairs:
+        if os.environ.get(env_name):
+            setattr(settings, attr, os.environ[env_name])
+            settings.sources[attr] = "shell environment"
+
+    if ENV_FILE.exists():
+        file_values = _read_env_file(ENV_FILE)
+        for env_name, attr in pairs:
+            if file_values.get(env_name):
+                setattr(settings, attr, file_values[env_name])
+                settings.sources[attr] = ".env"
 
     return settings
