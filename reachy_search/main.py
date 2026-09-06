@@ -12,6 +12,7 @@ buffer. The two talk through a state enum and a job queue, and that separation
 is why the animation stays smooth while the network does not.
 """
 
+import difflib
 import logging
 import logging.handlers
 import os
@@ -64,16 +65,31 @@ class State(Enum):
     ERROR = auto()
 
 
+def _sounds_like_reachy(word: str) -> bool:
+    if word in config.WAKE_WORDS:
+        return True
+    if word in config.WAKE_STOPLIST or len(word) < 4:
+        return False
+    return difflib.SequenceMatcher(None, word, "reachy").ratio() >= config.WAKE_FUZZ
+
+
 def match_wake(text: str) -> str | None:
     """Return what followed the wake word, "" if nothing did, None if no wake.
 
-    Whisper mangles "Reachy" freely, so we match a family of spellings.
-    "Hey Reachy, search for moka pots" -> "search for moka pots" (one-shot).
+    Whisper mangles "Reachy" freely (Richie, Rachel, Richy, "reach e"), so we
+    accept known spellings, anything within edit distance, and two adjacent
+    words that glue into the name. "Hey Reachy, search for moka pots" ->
+    "search for moka pots" (one-shot).
     """
     words = _WORDS.findall(text.lower())
     for i, word in enumerate(words):
-        if word in config.WAKE_WORDS:
-            rest = " ".join(words[i + 1:])
+        hit_len = 0
+        if _sounds_like_reachy(word):
+            hit_len = 1
+        elif i + 1 < len(words) and _sounds_like_reachy(word + words[i + 1]):
+            hit_len = 2
+        if hit_len:
+            rest = " ".join(words[i + hit_len:])
             # A word or two after the name is noise ("hey reachy there");
             # a real one-shot question has some meat on it.
             return rest if len(rest.split()) >= 3 else ""

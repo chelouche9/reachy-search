@@ -39,9 +39,15 @@ ANTENNA_COOLDOWN_S = 2.0
 # Wake word. Matched against a local Whisper transcript of short speech
 # bursts, so include the ways Whisper typically mishears "Reachy".
 WAKE_ENABLED = True
-WAKE_WORDS = ("reachy", "reachie", "richie", "ritchie", "ricci", "richi", "reechee")
-WAKE_MAX_S = 3.0
-WAKE_HANG_S = 0.35
+WAKE_WORDS = ("reachy", "reachie", "richie", "ritchie", "ricci", "richi", "richy",
+              "reechee", "rachel", "rachael", "reachey", "ritchy", "reechy")
+WAKE_MAX_S = 4.0
+WAKE_HANG_S = 0.7     # "Hey... Reachy" has a pause in it; don't cut after "Hey"
+WAKE_FUZZ = 0.72      # difflib ratio to accept a word as the name
+# Ordinary words that sit close to "reachy" by edit distance but never mean it.
+WAKE_STOPLIST = frozenset({"reach", "reaching", "reached", "reaches", "teach",
+                           "teaching", "preaching", "beach", "each", "rich",
+                           "richer", "which", "search", "reality", "really"})
 WAKE_MIN_SPEECH_S = 0.25
 PROMPT_TEXT = "What can I do for you?"
 

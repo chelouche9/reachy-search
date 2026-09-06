@@ -54,6 +54,9 @@ class Transcriber:
             beam_size=1,          # greedy: one short sentence, and speed matters
             vad_filter=True,
             condition_on_previous_text=False,
+            # Bias decoding toward the robot's name. Without this Whisper
+            # renders "Reachy" as Richie, Rachel, Richy, "where are"...
+            hotwords="Reachy",
         )
         text = " ".join(segment.text.strip() for segment in segments).strip()
         logger.info("Heard: %r", text)
