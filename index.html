@@ -16,7 +16,7 @@
           <p class="tags"><span class="tag--robot">🤖 Reachy Mini app</span><span>vision</span><span>voice</span><span>web search</span></p>
           <h1>🔎 Reachy&nbsp;Search</h1>
           <p class="tagline">
-            Hold something up. Boop an antenna. Ask.
+            Say “hey Reachy”. Hold something up. Ask.
           </p>
           <p class="sub">
             Reachy looks at the object, drums its antennas while it searches the
@@ -43,25 +43,27 @@
         <h2>How it works</h2>
         <ol class="steps">
           <li>
-            <h3>Boop an antenna</h3>
+            <h3>Say “hey Reachy”</h3>
             <p>
-              The antennas run at low gain, so they double as physical buttons.
-              Reachy grabs a camera frame the instant you touch one.
+              A local Whisper model listens for its name. It perks up and asks
+              what it can do for you. Booping an antenna works too.
             </p>
           </li>
           <li>
             <h3>Ask out loud</h3>
             <p>
-              It records until you stop talking. Speech recognition runs locally
-              and your microphone audio never leaves the machine.
+              It grabs a camera frame as you finish talking. Speech recognition
+              runs locally and your microphone audio never leaves the machine.
+              After it answers, it stays awake for a minute, so follow-up
+              questions need no wake word.
             </p>
           </li>
           <li>
-            <h3>It thinks, visibly</h3>
+            <h3>It thinks out loud</h3>
             <p>
-              Claude identifies the object and writes a search query, Tavily
-              searches, Claude writes the reply. Meanwhile Reachy plays one of
-              three thinking animations, picked at random.
+              A Claude agent sees the frame and decides for itself whether to
+              search the web with Tavily. When it does, Reachy says
+              “Searching…” and drums its antennas until the answer is in.
             </p>
           </li>
           <li>
@@ -90,23 +92,22 @@
       </section>
 
       <section class="panel">
-        <h2>The thinking moves</h2>
+        <h2>The thinking move</h2>
         <p class="lede">
           The latency isn't hidden. The animation <em>is</em> the interface.
-          Three of them, chosen at random per search.
         </p>
         <div class="moves">
           <div>
-            <h3>ponder</h3>
-            <p>Head cocks to one side and holds, sweeping slowly like it's reading a shelf. Antennas counter-rotate, a dial being turned.</p>
+            <h3>drumroll</h3>
+            <p>Head tips forward and the antennas drum an impatient alternating rhythm, like fingers on a desk, with the head cocking to a new angle every bar.</p>
           </div>
           <div>
-            <h3>scan</h3>
-            <p>A small figure-eight, antennas flicking alternately, deliberately off the head's rhythm.</p>
+            <h3>the aha</h3>
+            <p>When the answer lands, it pops up to face you before it speaks. A search that took five seconds ends with a visible “found it”.</p>
           </div>
           <div>
-            <h3>spin_up</h3>
-            <p>The literal loading spinner: antennas counter-rotate, accelerating from a lazy turn to a blur.</p>
+            <h3>built on real timing</h3>
+            <p>Beat structure, holds and asymmetry were measured from Pollen's animator-recorded emotion moves, so it reads as thinking rather than as a screensaver.</p>
           </div>
         </div>
       </section>
