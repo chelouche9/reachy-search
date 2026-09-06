@@ -5,13 +5,15 @@ colorFrom: yellow
 colorTo: pink
 sdk: static
 pinned: false
-short_description: Hold something up, ask. Reachy searches the web and answers.
+short_description: I gave my desk robot eyes and a search engine.
 tags:
  - reachy_mini
  - reachy_mini_python_app
 ---
 
 # Reachy Search
+
+**I gave my desk robot eyes and a search engine.**
 
 > **Status: working in simulation, not yet on physical hardware.** The whole
 > pipeline (wake word, camera, agent, search, voice, choreography) runs today
