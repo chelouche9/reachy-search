@@ -5,7 +5,7 @@ colorFrom: yellow
 colorTo: pink
 sdk: static
 pinned: false
-short_description: Hold something up, ask about it, and Reachy searches the web and answers out loud.
+short_description: Hold something up, ask. Reachy searches the web and answers.
 tags:
  - reachy_mini
  - reachy_mini_python_app
