@@ -64,7 +64,7 @@ SILENCE_HANG_S = 0.9
 # than at a "normal" mic level. Override per machine if needed:
 #   REACHY_SEARCH_SILENCE_RMS=0.001 python -m reachy_search.main
 # and use dev_mic_meter.py to see live levels against the gate.
-SILENCE_RMS = float(os.environ.get("REACHY_SEARCH_SILENCE_RMS", "0.0025"))
+SILENCE_RMS = float(os.environ.get("REACHY_SEARCH_SILENCE_RMS", "0.008"))
 MIN_SPEECH_S = 0.4
 
 
