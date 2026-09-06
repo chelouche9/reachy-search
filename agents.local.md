@@ -77,6 +77,17 @@
   webcam fallback — robot stays correct on hardware). Webcam needs macOS camera
   permission for the user's terminal; Claude's own process is TCC-blocked.
 
+## Shipped 2026-09-06
+- Public GitHub repo, HF Space (store-tagged, verified in the daemon's 441-app
+  store list), captioned demo video, README banner. Store install + launch
+  verified end to end through the daemon API on the sim.
+- Gotcha: installing through the daemon replaces the editable `.venv` install
+  with the store snapshot. Re-run `uv pip install -e .` after any install test.
+- Web dashboard at :8000 is deprecated; owners use the "Reachy Mini Control"
+  desktop app. The REST API underneath is unchanged.
+- The `pollen-robotics/Reachy_Mini_Apps` Space is dead (401/404); the live
+  catalog is huggingface.co/spaces?filter=reachy_mini_python_app.
+
 ## Still to do
 - Watch the three thinking moves on hardware and retune amplitudes.
 - Test `dev_webcam.py` interactively (mic + webcam) once camera permission is granted.
