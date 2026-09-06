@@ -60,8 +60,8 @@ Two API keys, both with usable free tiers:
   object and writes the answer
 - [Tavily](https://app.tavily.com/home): searches the web
 
-Install the app from the Reachy Mini dashboard, then open its settings page (the
-gear icon) and paste the keys in. Nothing else to configure.
+Install the app from the Reachy Mini Control app's store, then open its settings
+page (the gear icon) and paste the keys in. Nothing else to configure.
 
 Developers can skip the settings page by exporting `ANTHROPIC_API_KEY` and
 `TAVILY_API_KEY` before starting the daemon. The app inherits its environment,
