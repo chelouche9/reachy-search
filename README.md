@@ -13,6 +13,14 @@ tags:
 
 # Reachy Search
 
+> **Status: working in simulation, not yet on physical hardware.** The whole
+> pipeline — wake word, camera, agent, search, voice, choreography — runs today
+> against the Reachy Mini simulator and a webcam. If you own a Reachy Mini and
+> want to try it, I'd love to hear how it behaves: open an issue or find me in
+> the Reachy Discord. Whether this gets a real robot depends on whether anyone
+> wants it.
+
+
 Say **"hey Reachy"**. It perks up and asks what it can do for you. Ask —
 about something you're holding up, or anything at all.
 
