@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Reachy Search</title>
+    <title>Reachy Search · Reachy Mini app</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet" />
@@ -13,15 +13,20 @@
     <header class="hero">
       <div class="hero__inner">
         <div class="hero__copy">
-          <p class="tags"><span>vision</span><span>voice</span><span>web search</span></p>
+          <p class="tags"><span class="tag--robot">🤖 Reachy Mini app</span><span>vision</span><span>voice</span><span>web search</span></p>
           <h1>🔎 Reachy&nbsp;Search</h1>
           <p class="tagline">
             Hold something up. Boop an antenna. Ask.
           </p>
           <p class="sub">
-            Reachy looks at the object, spins its antennas while it searches the
+            Reachy looks at the object, drums its antennas while it searches the
             web, and tells you the answer out loud.
           </p>
+          <p class="cta">
+            <a class="btn btn--primary" href="https://github.com/chelouche9/reachy-search">View source &amp; setup</a>
+            <a class="btn" href="https://huggingface.co/spaces/pollen-robotics/Reachy_Mini_Apps">Reachy Mini app store</a>
+          </p>
+          <p class="status">Runs in the simulator today. Not yet tested on physical hardware. Own a Reachy? <a href="https://github.com/chelouche9/reachy-search/issues">Tell me how it behaves.</a></p>
         </div>
 
         <figure class="media">
@@ -109,9 +114,11 @@
       <section class="panel">
         <h2>Setup</h2>
         <p class="lede">
-          Two API keys, both with usable free tiers. Install from the Reachy Mini
-          dashboard, open the app's settings page, paste them in. That's the
-          whole configuration.
+          Open your Reachy Mini dashboard, find <strong>Reachy Search</strong> in
+          the app store and click Install. Then open the app's settings page and
+          paste in two API keys, both with usable free tiers. That's the whole
+          configuration. Full setup and the code are on
+          <a href="https://github.com/chelouche9/reachy-search">GitHub</a>.
         </p>
         <ul class="keys">
           <li><a href="https://console.anthropic.com/settings/keys">Anthropic</a>: sees the object, writes the answer</li>
@@ -134,9 +141,9 @@
         </div>
         <div>
           <h4>This app</h4>
-          <a href="https://github.com/pollen-robotics/reachy_mini">Reachy Mini SDK</a>
-          <a href="https://docs.anthropic.com">Claude API</a>
-          <a href="https://tavily.com">Tavily</a>
+          <a href="https://github.com/chelouche9/reachy-search">Source code on GitHub</a>
+          <a href="https://github.com/chelouche9/reachy-search/issues">Report a bug or share hardware feedback</a>
+          <a href="https://huggingface.co/spaces/pollen-robotics/Reachy_Mini_Apps">Reachy Mini app store</a>
         </div>
         <p class="colophon">A weekend toy, not a product. MIT licensed.</p>
       </div>

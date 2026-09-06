@@ -180,3 +180,24 @@ footer h4 {
 footer a { display: block; text-decoration: none; font-size: 0.93rem; padding: 0.15rem 0; }
 footer a:hover { color: var(--orange); }
 .colophon { color: var(--muted); font-size: 0.86rem; margin: 0; padding-top: 0.5rem; border-top: 1px solid var(--line); }
+
+.tag--robot { background: var(--ink) !important; color: #fff !important; }
+
+.cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.4rem 0 0; }
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.btn:hover { border-color: var(--orange); }
+.btn--primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+.btn--primary:hover { filter: brightness(0.94); }
+
+.status { margin: 1rem 0 0; font-size: 0.86rem; color: var(--muted); max-width: 40ch; }
+.status a { color: var(--ink); }
