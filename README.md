@@ -20,6 +20,10 @@ tags:
 > the Reachy Discord. Whether this gets a real robot depends on whether anyone
 > wants it.
 
+![Reachy Search demo — say "hey Reachy", hold up a book, ask where to watch the show; it searches and answers out loud](reachy_search/assets/demo.gif)
+
+*Full-quality cut with sound: [demo.mp4](reachy_search/assets/demo.mp4) (43 s).*
+
 
 Say **"hey Reachy"**. It perks up and asks what it can do for you. Ask —
 about something you're holding up, or anything at all.
