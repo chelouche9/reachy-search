@@ -25,17 +25,17 @@
             engine reading itself aloud.
           </p>
           <p class="cta">
-            <a class="btn btn--primary" href="https://github.com/chelouche9/reachy-search">View source &amp; setup</a>
-            <a class="btn" href="https://huggingface.co/spaces?filter=reachy_mini_python_app">Reachy Mini app store</a>
+            <a class="btn btn--primary" href="#setup">Install on your Reachy</a>
+            <a class="btn" href="https://github.com/chelouche9/reachy-search">View source</a>
           </p>
           <p class="status">Runs in the simulator today. Not yet tested on physical hardware. Own a Reachy? <a href="https://github.com/chelouche9/reachy-search/issues">Tell me how it behaves.</a></p>
         </div>
 
         <figure class="media">
-          <span class="media__fallback">Demo video coming soon</span>
-          <video autoplay loop muted playsinline>
-            <source src="reachy_search/assets/demo.mp4" type="video/mp4" />
+          <video autoplay loop muted playsinline poster="reachy_search/assets/hero-poster.jpg">
+            <source src="reachy_search/assets/hero-loop.mp4" type="video/mp4" />
           </video>
+          <figcaption><a href="reachy_search/assets/demo.mp4">Watch the full demo with sound (43 s)</a></figcaption>
         </figure>
       </div>
     </header>
@@ -80,12 +80,14 @@
 
       <section class="panel panel--quote">
         <blockquote>
-          <p class="ask">“What is this?”</p>
+          <p class="ask">“Where can I watch the show about this book?”</p>
           <p class="reply">
-            That's a stovetop moka pot. Water boils in the bottom chamber and
-            pressure pushes it up through the coffee. Yours looks like a
-            six-cup aluminium one.
+            That's the Dunk and Egg book, and the show is on HBO and HBO Max.
+            It premiered January eighteenth, twenty twenty-six, with six
+            episodes airing weekly on Sundays. A second season is already
+            planned for twenty twenty-seven.
           </p>
+          <p class="attribution">From the demo above. It read the cover through the camera, then searched.</p>
         </blockquote>
         <p class="note">
           Ask it anything you'd ask while holding the thing: <em>is this
@@ -98,6 +100,8 @@
         <p class="lede">
           The latency isn't hidden. The animation <em>is</em> the interface.
         </p>
+        <div class="moves-wrap">
+        <img class="moves-gif" src="reachy_search/assets/drumroll.gif" alt="Reachy drumming its antennas while it searches" loading="lazy" />
         <div class="moves">
           <div>
             <h3>drumroll</h3>
@@ -112,9 +116,10 @@
             <p>Beat structure, holds and asymmetry were measured from Pollen's animator-recorded emotion moves, so it reads as thinking rather than as a screensaver.</p>
           </div>
         </div>
+        </div>
       </section>
 
-      <section class="panel">
+      <section class="panel" id="setup">
         <h2>Setup</h2>
         <p class="lede">
           Open the <strong>Reachy Mini Control</strong> app, find
